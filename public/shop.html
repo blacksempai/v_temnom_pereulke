@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOP</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/favicon2.png" type="image/x-icon">
+</head>
+<body>
+    <h1>V Temnom Pereulke</h1>
+    <nav>
+        <div id="profile">
+            <a href="register.html">Register</a>
+            <a href="login.html">Login</a>
+        </div>
+        <a href="index.html">Home</a>
+        <div class="cart">
+            <button id="show_cart_btn" onclick="modal()"><img src="https://techcrunch.com/wp-content/uploads/2019/01/Caper-Self-Checkout-Shopping-Cart.png?w=508" alt="CART"></button>
+            <div id="modal" class="cart_content"></div>
+        </div>
+    </nav>
+    <div id="shop_grid"></div>
+</body>
+<script src="shop.js"></script>
+<script src="main.js" defer></script>
+<script src="cart.js"></script>
+</html>
