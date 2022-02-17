@@ -20,8 +20,8 @@ app.get('/user',(req,res)=>{
 app.post('/user',(req,res) => {
     let user = req.body;
     con.query(`INSERT INTO 
-    tuser(login,password,email,balance)
-    VALUES('${user.login}','${user.password}','${user.email}',0)`,
+    tuser(login,password,balance)
+    VALUES('${user.login}','${user.password}',0)`,
     (e,result) => {
         if(e) res.send(e);
         else {
