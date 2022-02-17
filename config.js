@@ -9,7 +9,7 @@ con.query(`CREATE TABLE user(
     password VARCHAR(64) NOT NULL,
     email VARCHAR(256),
     balance INT
-)`)
+)`,(e,r)=>{})
 
 con.query(`CREATE TABLE product(
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -17,13 +17,13 @@ con.query(`CREATE TABLE product(
     description TEXT,
     img VARCHAR(256),
     price INT
-)`)
+)`,(e,r)=>{})
 
 con.query(`CREATE TABLE cart(
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	user_id INT,
     FOREIGN KEY (user_id) REFERENCES user (id)
-)`)
+)`,(e,r)=>{})
 
 con.query(`CREATE TABLE cart_product(
 	id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,6 +31,6 @@ con.query(`CREATE TABLE cart_product(
     product_id INT,
     FOREIGN KEY (cart_id) REFERENCES cart (id),
     FOREIGN KEY (product_id) REFERENCES product (id)
-)`)
+)`,(e,r)=>{})
 
 module.exports = con;
