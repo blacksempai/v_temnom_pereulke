@@ -5,7 +5,7 @@ const con = require('./config');
 const res = require('express/lib/response');
 const app = express();
 app.use(express.urlencoded({extended: true}));
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 app.use(cookieParser());
 
 app.use(express.static(__dirname + '/public'));
@@ -143,11 +143,7 @@ app.get('/cart/products', (req,res)=>{
                             cp.forEach((p)=>{
                                 let productId = p.product_id;
                                 let product = products.find((pp)=>pp.id == productId);
-                                let cartProduct = {
-                                    id: p.id,
-                                    product: product
-                                }
-                                a.push(cartProduct);
+                                a.push(product);
                             })
                             res.status(200).send(a);
                         })
@@ -158,36 +154,32 @@ app.get('/cart/products', (req,res)=>{
     });
 })
 
-app.get('/order', (req, res) => {
-    let token = req.cookies.token;
-    con.query(`SELECT * FROM user WHERE token = '${token}'`, (e, result)=>{
-        if(e) res.status(500).send(e);
-        else {
-            let userId = result[0].id;
-            con.query(`SELECT * FROM cart WHERE user_id = ${userId}`, (e, result)=>{
-                if(e) res.status(500).send(e);
-                else {
-                    let cartId = result[0].id;
-                    con.query(`SELECT * FROM cart_product WHERE cart_id = ${cartId}`, (e,cp)=>{
-                        if(e) res.status(500).send(e);
-                        con.query(`SELECT * FROM product`, (e,products)=>{
-                            let a = [];
-                            let sum = 0;//new
-                            cp.forEach((p)=>{
-                                let productId = p.product_id;
-                                let product = products.find((pp)=>pp.id == productId);
-                                let cartProduct = {
-                                    id: p.id,
-                                    product: product
-                                }
-                                sum += product.price;//new
-                                a.push(cartProduct);
-                            })
-                            //new
-                        })
-                    })
-                }
-            });
-        }
-    });
-});
+// app.get('/order', (req, res) => { 
+//     let token = req.cookies.token;
+//     con.query(`SELECT * FROM user WHERE token = '${token}'`, (e, result)=>{
+//         if(e) res.status(500).send(e);
+//         else {
+//             let userId = result[0].id;
+//             con.query(`SELECT * FROM cart WHERE user_id = ${userId}`, (e, result)=>{
+//                 if(e) res.status(500).send(e);
+//                 else {
+//                     let cartId = result[0].id;
+//                     con.query(`SELECT * FROM cart_product WHERE cart_id = ${cartId}`, (e,cp)=>{
+//                         if(e) res.status(500).send(e);
+//                         con.query(`SELECT * FROM product`, (e,products)=>{
+//                             let a = [];
+//                             let sum = 0;
+//                             cp.forEach((p)=>{
+//                                 let productId = p.product_id;
+//                                 let product = products.find((pp)=>pp.id == productId);
+//                                 sum += product.price;
+//                                 a.push(product);
+//                             })
+                           
+//                     })
+                
+//               });
+//          }
+//         }
+//     );
+//     }})})
