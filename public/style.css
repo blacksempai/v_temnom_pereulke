@@ -7,22 +7,17 @@
   height: 698px;
   width: 100%;
   background: url(/Untitled_design.png) no-repeat 0px 0px fixed;
-  
-  
+  display: flex;
+  justify-content: space-around;
 }
 
 .img_top1{
-margin-bottom:209px;
-  margin-left:190px;
-  margin-right: 220px;
   border-radius: 25px;
 }
 .img_top2{
-  margin-top: 88px;
   border-radius: 25px;
   height: 689px;
   width: 536px;
-
 }
 
 .empty{
@@ -189,4 +184,8 @@ color: black;
 }
 #can2{
   margin-bottom: 30px;
+}
+
+.sales img {
+  width: 100%;
 }

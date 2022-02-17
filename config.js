@@ -8,6 +8,7 @@ con.query(`CREATE TABLE user(
     login VARCHAR(64) UNIQUE NOT NULL,
     password VARCHAR(64) NOT NULL,
     email VARCHAR(256),
+    token VARCHAR(256),
     balance INT
 )`,(e,r)=>{})
 
