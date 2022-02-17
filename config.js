@@ -1,6 +1,6 @@
 const {Client} = require('pg');
-let connectionString = process.env.DATABASE_URL;
-const con = new Client({connectionString,});
+
+const con = new Client();
 con.connect()
 
 con.query(`CREATE TABLE user(
