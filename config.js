@@ -1,7 +1,7 @@
 const {Client} = require('pg');
 let connectionString = process.env.DATABASE_URL;
 const con = new Client({connectionString,});
-await con.connect()
+con.connect()
 
 con.query(`CREATE TABLE user(
 	id INT AUTO_INCREMENT PRIMARY KEY,
