@@ -17,7 +17,8 @@ con.query(`CREATE TABLE product(
     name VARCHAR(64)  NOT NULL,
     description TEXT,
     img VARCHAR(256),
-    price INT
+    price INT,
+    category VARCHAR(256)
 )`,(e,r)=>{})
 
 con.query(`CREATE TABLE cart(
