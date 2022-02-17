@@ -70,12 +70,12 @@ app.post('/login' , (req , res)=>{
     let user = req.body;
     con.query(`SELECT id, login, password FROM users WHERE login = '${user.login}'`,
     (error, result) => {
-        console.log(result);
+        console.log(result)
         if (error) 
             res.status(500).send('DataBase ErroR ' + error);
         else
-        if(result){
-            if (result.password == user.password) {
+        if(result.rows){
+            if (resultt.rows[0].password == user.password) {
                 auth(result.id,res);
             }
             else res.status(401).send("Wrong Pass"); 
@@ -109,11 +109,11 @@ app.get('/cart',(req,res)=>{
     con.query(`SELECT * FROM users WHERE token = '${token}'`, (e, result)=>{
         if(e) res.status(500).end();
         else {
-            let userId = result[0].id;
+            let userId = result.rows[0].id;
             con.query(`SELECT * FROM cart WHERE user_id = ${userId}`, (e, result)=>{
                 if(e) res.status(500).end(e);
                 else {
-                    let cartId = result[0].id;
+                    let cartId = result.rows[0].id;
                     con.query(`INSERT INTO cart_product(cart_id,product_id)
                      VALUES(${cartId},${id})`,(e,result)=>{
                         if(e) res.status(500).end(e);
@@ -132,11 +132,11 @@ app.get('/cart/products', (req,res)=>{
     con.query(`SELECT * FROM users WHERE token = '${token}'`, (e, result)=>{
         if(e) res.status(500).send(e);
         else {
-            let userId = result[0].id;
+            let userId = result.rows[0].id;
             con.query(`SELECT * FROM cart WHERE user_id = ${userId}`, (e, result)=>{
                 if(e) res.status(500).send(e);
                 else {
-                    let cartId = result[0].id;
+                    let cartId = result.rows[0].id;
                     con.query(`SELECT * FROM cart_product WHERE cart_id = ${cartId}`, (e,cp)=>{
                         if(e) res.status(500).send(e);
                         con.query(`SELECT * FROM product`, (e,products)=>{
