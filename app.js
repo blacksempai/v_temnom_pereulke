@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/user',(req,res)=>{
-    con.query('SELECT * FROM tuser', (e,result) => {
+    con.query('SELECT * FROM users', (e,result) => {
         if(e) res.send(e);
         else res.send(JSON.stringify(result));
     });
@@ -20,7 +20,7 @@ app.get('/user',(req,res)=>{
 app.post('/user',(req,res) => {
     let user = req.body;
     con.query(`INSERT INTO 
-    tuser(login,password,email,balance)
+    users(login,password,email,balance)
     VALUES('${user.login}','${user.password}','${user.email}',0) `,
     (e,result) => {
         if(e) res.send(e);
@@ -37,7 +37,7 @@ app.post('/user',(req,res) => {
 app.get('/product',(req,res)=>{
     if(req.cookies.token){
         let token = req.cookies.token;
-        con.query(`SELECT * FROM tuser WHERE token = '${token}'`,(e,result)=>{
+        con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
             if(e) res.send(e);
             else if(result.length > 0){
                 con.query('SELECT * FROM product', (e,result) => {
@@ -68,7 +68,7 @@ app.post('/product',(req,res) => {
 
 app.post('/login' , (req , res)=>{
     let user = req.body;
-    con.query(`SELECT id, login, password FROM tuser WHERE login = '${user.login}'`,
+    con.query(`SELECT id, login, password FROM users WHERE login = '${user.login}'`,
     (error, result) => {
         if (error) 
             res.status(500).send('DataBase ErroR ' + error);
@@ -86,7 +86,7 @@ app.post('/login' , (req , res)=>{
 
 function auth(id,res) {
     let token = generateToken();
-    con.query(`UPDATE tuser SET token = '${token}' WHERE id = ${id}`, 
+    con.query(`UPDATE users SET token = '${token}' WHERE id = ${id}`, 
     (error, result) =>{
         if(error) res.status(500).send(error);
         else res.status(200).send(token);
@@ -105,7 +105,7 @@ app.get('/logout',(req,res)=>{
 app.get('/cart',(req,res)=>{
     let id = req.query.id;
     let token = req.cookies.token;
-    con.query(`SELECT * FROM tuser WHERE token = '${token}'`, (e, result)=>{
+    con.query(`SELECT * FROM users WHERE token = '${token}'`, (e, result)=>{
         if(e) res.status(500).end();
         else {
             let userId = result[0].id;
@@ -128,7 +128,7 @@ app.get('/cart',(req,res)=>{
 
 app.get('/cart/products', (req,res)=>{
     let token = req.cookies.token;
-    con.query(`SELECT * FROM tuser WHERE token = '${token}'`, (e, result)=>{
+    con.query(`SELECT * FROM users WHERE token = '${token}'`, (e, result)=>{
         if(e) res.status(500).send(e);
         else {
             let userId = result[0].id;
