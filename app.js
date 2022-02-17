@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
 const con = require('./config');
 const res = require('express/lib/response');
+const LiqPay = require('liqpay-sdk');
 const app = express();
 app.use(express.urlencoded({extended: true}));
 app.listen(process.env.PORT || 3000);
@@ -10,10 +11,30 @@ app.use(cookieParser());
 
 app.use(express.static(__dirname + '/public'));
 
+const public_key = 'sandbox_i92744062401'
+const private_key = 'sandbox_iq6wFu22apofKNRNsS4EtWIJUtraHmPMIcQFS14Y';
+
 app.get('/user',(req,res)=>{
-    con.query('SELECT * FROM users', (e,result) => {
-        if(e) res.send(e);
-        else res.send(JSON.stringify(result.rows));
+    con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
+        if(e) res.redirect('/error.html');
+        else {  
+            let rand= Math.floor(Math.random*90000);
+            let liqpay = new LiqPay(public_key, private_key);
+            let html = liqpay.cnb_form({
+            'action'         : 'pay',
+            'amount'         : '1000',
+            'currency'       : 'USD',
+            'description'    : 'Верни мамке карту',
+            'order_id'       : 'order_id_'+rand,
+            'version'        : '3'
+            });
+            res.send(`
+                <h1>Ваш баланс: ${result.rows[0].balance}</h1>
+                <h2>Пополнить баланс: </h2>
+                ${html}
+                <a href="/">Go back to home page</a>
+            `);
+        }
     });
 });
 

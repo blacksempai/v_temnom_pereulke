@@ -12,6 +12,7 @@
     
   </head>
   <body>
+    <header>
         <nav class="navbar navbar-light bg-dark">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -29,27 +30,22 @@
         <li class="nav-item">
      <h4><b><a style="color: white; margin-right: 50px" class="nav-link" href="product.html" class="account ml-auto">Add product</a></b></h4>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" class="auth">
        <h4> <b><a style="color: white; margin-right: 50px" class="nav-link" href="register.html" class="account ml-auto">Register</a></b></h4>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" class="auth">
           <h4> <b><a style="color: white; margin-right: 50px" class="nav-link" href="login.html" class="account ml-auto">Login</a></b></h4>
            </li>
-        <li id="shop" class="nav-item dropdown">
-    <h4><b><a style="color: white; margin-right: 50px" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Menu
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <!-- <li><a class="dropdown-item" href="/front-end/about_us.html" class="account ml-auto">About Us</a></li> -->
-            <li><a class="dropdown-item" href="shop.html" class="account ml-auto">Shop</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li></b> </h4>
+           <li class="nav-item" id="shop">
+            <h4> <b><a style="color: white; margin-right: 50px" class="nav-link" href="shop.html" class="account ml-auto">Shop</a></b></h4>
+             </li>
+             <li class="nav-item">
+              <h4>  <b> <a style="color: white; margin-right: 50px" class="nav-link active" aria-current="page" href="/about.html">About</a></b></h4>
+               </li>
       </ul>
     </div>
   </div>
 </nav>
-
             </a>
             <button style="background-color:white" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <span  class="navbar-toggler-icon"></span>
@@ -75,12 +71,6 @@
         </nav>
     </header>
 <main>
-
-   
-
-
-
-
 <div class="content">
 
   <div class = "top">
@@ -99,7 +89,7 @@
       <div class="container-fluid">
         <a class="navbar-brand"><p class="best_sellers"><b>Best Sellers</b></p></a>
         <form class="d-flex">
-          <button type="button" class="btn btn-outline-warning">View All</button>
+          <a href="/shop.html" type="button" class="btn btn-outline-warning">View All</a>
         </form>
       </div>
     </nav>
@@ -375,13 +365,6 @@
   <!-- Copyright -->
 
 </footer>
-<!-- Footer -->
-  
-  <!-- <a href="/front-end/about_us.html" class="account ml-auto">About Us</a>
-          <a href="product.html" class="account ml-auto">Add product</a>
-          <a href="register.html" class="account ml-auto">Register</a>
-          <a href="shop.html" class="account ml-auto">Shop</a>
-   -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r123/three.min.js"></script>
 <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GLTFLoader.js"></script>  
