@@ -13,7 +13,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/user',(req,res)=>{
     con.query('SELECT * FROM users', (e,result) => {
         if(e) res.send(e);
-        else res.send(JSON.stringify(result));
+        else res.send(JSON.stringify(result.rows));
     });
 });
 
@@ -25,7 +25,8 @@ app.post('/user',(req,res) => {
     (e,result) => {
         if(e) res.send(e);
         else {
-            let userId = result.insertId;
+            console.log(result);
+            let userId = result.rows[0].insertId;
             con.query(`INSERT INTO cart(user_id) VALUES(${userId})`,(e,result)=>{
                 if(e) res.status(500).end();
                 else res.redirect('login.html');
@@ -39,10 +40,10 @@ app.get('/product',(req,res)=>{
         let token = req.cookies.token;
         con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
             if(e) res.send(e);
-            else if(result.length > 0){
+            else if(result.rows){
                 con.query('SELECT * FROM product', (e,result) => {
                     if(e) res.send(e);
-                    else res.send(JSON.stringify(result));
+                    else res.send(JSON.stringify(result.rows));
                 });
             }
             else {
@@ -76,7 +77,7 @@ app.post('/login' , (req , res)=>{
         else
         if(result.rows){
             if (result.rows[0].password == user.password) {
-                auth(result.id,res);
+                auth(result.rows[0].id,res);
             }
             else res.status(401).send("Wrong Pass"); 
         }
