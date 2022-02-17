@@ -75,7 +75,7 @@ app.post('/login' , (req , res)=>{
             res.status(500).send('DataBase ErroR ' + error);
         else
         if(result.rows){
-            if (resultt.rows[0].password == user.password) {
+            if (result.rows[0].password == user.password) {
                 auth(result.id,res);
             }
             else res.status(401).send("Wrong Pass"); 
