@@ -11,52 +11,17 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/user',(req,res)=>{
-    con.query(`CREATE TABLE tuser(
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        login VARCHAR(64) UNIQUE NOT NULL,
-        password VARCHAR(64) NOT NULL,
-        email VARCHAR(256),
-        token VARCHAR(256),
-        balance INT
-    )`,(e,r)=>{
-        con.query(`CREATE TABLE product(
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(64)  NOT NULL,
-            description TEXT,
-            img VARCHAR(256),
-            price INT,
-            category VARCHAR(256)
-        )`,(e,r)=>{
-            con.query(`CREATE TABLE cart(
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                user_id INT,
-                FOREIGN KEY (user_id) REFERENCES tuser (id)
-            )`,(e,r)=>{
-                con.query(`CREATE TABLE cart_product(
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    cart_id INT,
-                    product_id INT,
-                    FOREIGN KEY (cart_id) REFERENCES cart (id),
-                    FOREIGN KEY (product_id) REFERENCES product (id)
-                )`,(e,r)=>{
-                    con.query('SELECT * FROM tuser', (e,result) => {
-                        if(e) res.send(e);
-                        else res.send(JSON.stringify(result));
-                    });
-                })
-            })
-            
-        })
-        
-    })
-    
+    con.query('SELECT * FROM tuser', (e,result) => {
+        if(e) res.send(e);
+        else res.send(JSON.stringify(result));
+    });
 });
 
 app.post('/user',(req,res) => {
     let user = req.body;
     con.query(`INSERT INTO 
     tuser(login,password,email,balance)
-    VALUES('${user.login}','${user.password}','${user.email}',0) RETURNING *`,
+    VALUES('${user.login}','${user.password}','${user.email}',0) `,
     (e,result) => {
         if(e) res.send(e);
         else {
