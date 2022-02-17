@@ -15,6 +15,7 @@ const public_key = 'sandbox_i92744062401'
 const private_key = 'sandbox_iq6wFu22apofKNRNsS4EtWIJUtraHmPMIcQFS14Y';
 
 app.get('/user',(req,res)=>{
+    let token = req.cookies.token;
     con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
         if(e) res.redirect('/error.html');
         else {  
