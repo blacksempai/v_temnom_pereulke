@@ -70,12 +70,13 @@ app.post('/login' , (req , res)=>{
     let user = req.body;
     con.query(`SELECT id, login, password FROM users WHERE login = '${user.login}'`,
     (error, result) => {
+        console.log(result);
         if (error) 
             res.status(500).send('DataBase ErroR ' + error);
         else
-        if(result.length > 0){
-            if (result[0].password == user.password) {
-                auth(result[0].id,res);
+        if(result){
+            if (result.password == user.password) {
+                auth(result.id,res);
             }
             else res.status(401).send("Wrong Pass"); 
         }
