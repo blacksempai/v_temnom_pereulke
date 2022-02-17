@@ -3,7 +3,7 @@ let connectionString = process.env.DATABASE_URL;
 const con = new Client({connectionString, ssl: true});
 con.connect()
 
-con.query(`CREATE TABLE user(
+con.query(`CREATE TABLE tuser(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     login VARCHAR(64) UNIQUE NOT NULL,
     password VARCHAR(64) NOT NULL,
@@ -23,7 +23,7 @@ con.query(`CREATE TABLE product(
 con.query(`CREATE TABLE cart(
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user (id)
+    FOREIGN KEY (user_id) REFERENCES tuser (id)
 )`,(e,r)=>{})
 
 con.query(`CREATE TABLE cart_product(

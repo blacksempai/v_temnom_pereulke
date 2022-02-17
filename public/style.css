@@ -9,15 +9,16 @@
   background: url(/Untitled_design.png) no-repeat 0px 0px fixed;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .img_top1{
   border-radius: 25px;
+  width: 40%;
 }
 .img_top2{
   border-radius: 25px;
-  height: 689px;
-  width: 536px;
+  width: 20%;
 }
 
 .empty{
