@@ -209,9 +209,9 @@ app.get('/cart/products', (req,res)=>{
                         if(e) res.status(500).send(e);
                         con.query(`SELECT * FROM product`, (e,products)=>{
                             let a = [];
-                            cp.forEach((p)=>{
+                            cp.rows.forEach((p)=>{
                                 let productId = p.product_id;
-                                let product = products.find((pp)=>pp.id == productId);
+                                let product = products.rows.find((pp)=>pp.id == productId);
                                 a.push(product);
                             })
                             res.status(200).send(a);

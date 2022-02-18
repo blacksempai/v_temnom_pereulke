@@ -146,6 +146,8 @@ color: black;
 #show_cart_btn{
   background: none;
   border-radius: 50%;
+  width: 50px;
+  width: 50px;
 }
 #show_cart_btn img{
   width: 50px;
@@ -153,7 +155,8 @@ color: black;
 }
 .cart_shop{ 
   position: relative; 
-  width: 50px; 
+  width: 50px;
+  width: 50px;
   margin-left: 2rem;
 }
 .cart_content{
