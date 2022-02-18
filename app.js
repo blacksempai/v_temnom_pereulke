@@ -74,9 +74,9 @@ app.get('/user',(req,res)=>{
             <input type="text" hidden name="signature" value="${pay.request.signature}">
             <input type="text" hidden name="product_id" value="${pay.request.product_id}">
             <input type="text" hidden name="merchant_id" value="${pay.request.merchant_id}">
-            <input style="margin-top:20px; cursor: pointer; color: #00ff00; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Top up balance">
+            <input style="margin-top:20px; cursor: pointer;  color: #000000; font-size: 3rem; background-color: rgb(255, 255, 103); border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Top up balance">
           </form>
-            <a style="margin-top:20px; border: 1px solid #000000; text-decoration:none; color: #00ff00; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go to Home Page</a>
+            <a style="margin-top:20px; border: 1px solid #000000; text-decoration:none; color: #000000; font-size: 3rem; background-color: rgb(255, 255, 103); border-radius:15px; display:inline-block; padding:20px;" href="/">Go to Home Page</a>
             </center>
             </body>
         `);
