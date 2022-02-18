@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 
 const storage = multer.diskStorage({
     destination: function(req, file, callback) {
-      callback(null, '/public/Organs');
+      callback(null, './public/Organs');
     },
     filename: function (req, file, callback) {
       callback(null, file.originalname);
@@ -126,6 +126,7 @@ app.get('/product',(req,res)=>{
 
 app.post('/product', upload.single('img'),(req,res) => {
     let product = req.body;
+    console.log(JSON.stringify(req.file))
     con.query(`INSERT INTO 
     product(name,price,description,img,category)
     VALUES('${product.name}',${product.price},'${product.description}','${req.file.path}','${product.category}')`,

@@ -205,3 +205,8 @@ color: black;
 .sales img {
   width: 100%;
 }
+
+
+.carousel-item img {
+  max-height: 80vh;
+}
