@@ -24,6 +24,7 @@ xhr.onload = () => {
               <div class="btn-group">
                 <a type="button" href="/cart?id=${product.id}" class="btn btn-primary">Buy</a>
               </div>
+              <small class="text-muted">Category: ${product.category}</small>
             </div>
           </div>
         </div>

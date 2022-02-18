@@ -60,7 +60,7 @@ app.get('/user',(req,res)=>{
             let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url+"|"+pay.request.server_callback_url); 
             pay.request.signature = signature;
             res.send(`
-            <body style="background:#000000; color: #00ff00; font-family: sans-serif;">
+            <body style="background:#000000; color: #00ff00; font-family: sans-serif; padding: 5rem 0 0">
             <center>
             <h1>Profile of: ${result.rows[0].login}</h1>
             <h1>Your balance: ${result.rows[0].balance}$</h1>
@@ -114,7 +114,7 @@ app.get('/product',(req,res)=>{
                 });
             }
             else {
-                res.status(401).send('Error 401 Login Please');
+                res.status(401).redirect('/error.html');
             }
         })
 
@@ -128,8 +128,8 @@ app.post('/product',(req,res) => {
     product(name,price,description,img,category)
     VALUES('${product.name}',${product.price},'${product.description}','${product.img}','${product.category}')`,
     (e,result) => {
-        if(e) res.send(e);
-        else res.send('SUCCESS');
+        if(e) res.redirect('/error.html');
+        else res.redirect('/');
     })
 });
 
@@ -175,16 +175,16 @@ app.get('/cart',(req,res)=>{
     let id = req.query.id;
     let token = req.cookies.token;
     con.query(`SELECT * FROM users WHERE token = '${token}'`, (e, result)=>{
-        if(e) res.status(500).end();
+        if(e) res.status(500).redirect('/error.html');
         else {
             let userId = result.rows[0].id;
             con.query(`SELECT * FROM cart WHERE user_id = ${userId}`, (e, result)=>{
-                if(e) res.status(500).end(e);
+                if(e) res.status(500).redirect('/error.html');
                 else {
                     let cartId = result.rows[0].id;
                     con.query(`INSERT INTO cart_product(cart_id,product_id)
                      VALUES(${cartId},${id})`,(e,result)=>{
-                        if(e) res.status(500).end(e);
+                        if(e) res.status(500).redirect('/error.html');
                         else {
                             res.status(201).redirect('/shop.html');
                         }
@@ -212,9 +212,59 @@ app.get('/cart/products', (req,res)=>{
                             cp.rows.forEach((p)=>{
                                 let productId = p.product_id;
                                 let product = products.rows.find((pp)=>pp.id == productId);
-                                a.push(product);
+                                let cart_p = {
+                                    product: product,
+                                    id: p.id
+                                }
+                                a.push(cart_p);
                             })
                             res.status(200).send(a);
+                        })
+                    })
+                }
+            });
+        }
+    });
+})
+
+app.get("/remove-from-cart", (req, res) => {
+    let cart_product_id = req.query.id;
+    db.query(`DELETE FROM cart_product WHERE id=${cart_product_id}`, (error, result) => {
+        if (error) res.status(500).redirect('/error.html');
+        else {
+            res.redirect("/shop.html"); 
+            }
+        });
+});
+
+app.post('/withdraw', (req,res)=>{
+    let token = req.cookies.token;
+    con.query(`SELECT * FROM users WHERE token = '${token}'`, (e, result)=>{
+        if(e) res.status(500).send(e);
+        else {
+            let balance = result.rows[0].balance;
+            let userId = result.rows[0].id;
+            con.query(`SELECT * FROM cart WHERE user_id = ${userId}`, (e, result)=>{
+                if(e) res.status(500).send(e);
+                else {
+                    let cartId = result.rows[0].id;
+                    con.query(`SELECT * FROM cart_product WHERE cart_id = ${cartId}`, (e,cp)=>{
+                        if(e) res.status(500).send(e);
+                        con.query(`SELECT * FROM product`, (e,products)=>{
+                            let sum = 0;
+                            cp.rows.forEach((p)=>{
+                                let productId = p.product_id;
+                                let product = products.rows.find((pp)=>pp.id == productId);
+                                sum += product.price;
+                            })
+                            if(balance > sum) {
+                                con.query(`UPDATE users SET balance = '${balance-sum}' WHERE id = ${userId}`,(e,res)=>{
+                                    res.status(200).send();
+                                });
+                            }
+                            else {
+                                res.status(401).send();
+                            }
                         })
                     })
                 }
