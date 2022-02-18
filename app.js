@@ -40,7 +40,7 @@ app.get('/user',(req,res)=>{
                   order_id: "temniy"+rand,
                   order_desc: "Верни карточку мамке",
                   currency: "USD",
-                  amount: 100000,
+                  amount: 1000000,
                   merchant_id: "1397120",
                   product_id: result.rows[0].id,
                   response_url: "https://v-temnom-magaze.herokuapp.com/",
