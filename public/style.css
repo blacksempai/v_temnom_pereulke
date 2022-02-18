@@ -223,4 +223,9 @@ color: black;
   .cart_shop {
     margin-left: -4rem;
   }
+
+  .best_sellers,
+  .shop {
+    margin: 0;
+  }
 }
