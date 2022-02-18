@@ -150,9 +150,8 @@ color: black;
 #show_cart_btn img{
   width: 100px;
 }
-.cart_shop{
-  position: fixed; 
-  top: 20px; 
+.cart_shop{ 
+  position: relative;
   right: 60px; 
   width: 100px; 
 }
