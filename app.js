@@ -78,7 +78,7 @@ app.post('/user',(req,res) => {
     let user = req.body;
     con.query(`INSERT INTO 
     users(login,password,email,balance)
-    VALUES('${user.login}','${user.password}','${user.email}',0) `,
+    VALUES('${user.login}','${user.password}','${user.email}',0) RETURNING * `,
     (e,result) => {
         if(e) res.redirect('/error.html');
         else {
