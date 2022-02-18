@@ -3,6 +3,7 @@ const sha1 = require('js-sha1');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
 const con = require('./config');
+const fetch = require('node-fetch');
 const multer = require('multer');
 const res = require('express/lib/response');
 const app = express();
