@@ -129,7 +129,7 @@ app.get('/product',(req,res)=>{
 
 });
 
-app.post('/product', upload.any(), (req,res) => {
+app.post('/product', upload.single('img'), (req,res) => {
     let product = req.body;
     console.log(JSON.stringify(req.file))
     con.query(`INSERT INTO 
