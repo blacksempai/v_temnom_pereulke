@@ -8,7 +8,7 @@ cartRequest.onload = () => {
     cartRequest.response.forEach(cp => {
         sum += cp.product.price;
         modalElem.innerHTML += `
-            <p>Product: ${cp.product.name} <span> price: ${cp.product.price}$</span> <a href='/remove-from-cart?id=${cp.id}' style="font-size: 2rem; text-decoration: none;">-</a></p>
+            <p>Product: ${cp.product.name} <span style:"color: red;">${cp.product.price}$</span> <a href='/remove-from-cart?id=${cp.id}' style="font-size: 2rem; text-decoration: none;">-</a></p>
         `
     });
     modalElem.innerHTML +=`
@@ -16,7 +16,7 @@ cartRequest.onload = () => {
         <input type="tell" placeholder="Your phone number"></input>
         <input type="text" placeholder="Your Name and Sirname"></input>
         <input type="number" placeholder="NovaPoshta number"></input>
-        <p>Total price: ${sum}</p>
+        <p style:"color: red;>Total price: ${sum}</p>
         <button onclick="withdraw()">Buy All</button>
     `
 }

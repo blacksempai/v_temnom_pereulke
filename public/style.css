@@ -170,12 +170,12 @@ color: black;
     top: 50px; 
     right: 0; 
     z-index: 20;
-    width: 400px; 
-    height: 600px; 
+    width: 500px; 
+    min-height: 600px; 
     border-radius: 20px;
     background-color: grey; 
     padding: 20px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     box-sizing: border-box;
 }
 
