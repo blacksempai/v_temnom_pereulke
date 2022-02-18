@@ -3,30 +3,13 @@ const sha1 = require('js-sha1');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
 const con = require('./config');
-const multer = require('multer');
-const aws = require('aws-sdk')
-const multerS3 = require('multer-s3')
 const res = require('express/lib/response');
 const app = express();
 app.use(express.urlencoded({extended: true}));
 app.listen(process.env.PORT || 3000);
 app.use(cookieParser());
 
-var upload = multer({
-  storage: multerS3({
-    s3: new aws.S3(),
-    bucket: 'some-bucket',
-    metadata: function (req, file, cb) {
-      cb(null, {fieldName: file.fieldname});
-    },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString())
-    }
-  })
-})
-
 app.use(express.static(__dirname + '/public'));
-
 
 app.post('/callback', (req,res)=>{
     let pay = req.body;
@@ -129,12 +112,11 @@ app.get('/product',(req,res)=>{
 
 });
 
-app.post('/product', upload.single('img'), (req,res) => {
+app.post('/product', (req,res) => {
     let product = req.body;
-    console.log(JSON.stringify(req.file))
     con.query(`INSERT INTO 
     product(name,price,description,img,category)
-    VALUES('${product.name}',${product.price},'${product.description}','${req.file.path}','${product.category}')`,
+    VALUES('${product.name}',${product.price},'${product.description}','${product.img}','${product.category}')`,
     (e,result) => {
         if(e) res.redirect('/error.html');
         else res.redirect('/');
