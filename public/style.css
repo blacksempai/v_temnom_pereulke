@@ -67,7 +67,8 @@ h1{
 }
 
 .card-img-top{
-
+  height: 255px;
+width: 285px;
 }
 .card{
   background-color: black;
