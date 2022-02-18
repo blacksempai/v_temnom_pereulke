@@ -26,8 +26,8 @@ app.post('/callback', (req,res)=>{
     let pay = req.body;
     if(pay.order_status == 'approved'){
         con.query(`SELECT * FROM users WHERE id = ${pay.product_id}`,(e,r)=>{
-            let balance = r.rows[0].balance + pay.product_id;
-            con.query(`UPDATE users SET balance = '${token}' WHERE id = ${balance}`,(e,res)=>{
+            let balance = r.rows[0].balance + 1000;
+            con.query(`UPDATE users SET balance = '${balance}' WHERE id = ${pay.product_id}`,(e,res)=>{
 
             });
         });
