@@ -245,7 +245,7 @@ app.post('/withdraw', (req,res)=>{
                                 sum += product.price;
                             })
                             if(balance > sum) {
-                                con.query(`DELETE FROM cart_product WHERE cartId=${cartId}`, (error, result) => {
+                                con.query(`DELETE FROM cart_product WHERE cart_id=${cartId}`, (error, result) => {
                                     con.query(`UPDATE users SET balance = '${balance - sum}' WHERE id = ${userId}`,(e,rs)=>{
                                         res.status(200).send();
                                     });
