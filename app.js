@@ -48,6 +48,7 @@ app.get('/user',(req,res)=>{
               }
             let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url); 
             pay.request.signature = signature;
+            console.log(pay);
             fetch('https://pay.fondy.eu/api/checkout/url/', {
                 method: 'POST',
                 headers: {
@@ -56,6 +57,7 @@ app.get('/user',(req,res)=>{
                 body: JSON.stringify(pay)
               }).then(res => res.json())
               .then((json)=>{
+                  console.log(json);
                 let url = json.response.checkout_url; 
                 res.send(`
                 <h1>Ваш баланс: ${result.rows[0].balance}</h1>
