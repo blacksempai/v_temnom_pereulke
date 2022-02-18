@@ -62,7 +62,7 @@ app.get('/user',(req,res)=>{
                 res.send(`
                 <h1>Ваш баланс: ${result.rows[0].balance}</h1>
                 <h2>Пополнить баланс: </h2>
-                <div id="fondyApplePay"> </div>
+                <div id="frameholder"> </div>
                 <a href="/">Go back to home page</a>
                 <script src="https://pay.fondy.eu/static_common/v1/checkout/ipsp.js"></script>
                 <script> $ipsp.get('checkout').config({
