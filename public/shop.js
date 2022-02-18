@@ -9,7 +9,7 @@ xhr.responseType = 'json';
 xhr.onload = () => {     
     shopGrid.innerHTML = '';
     if(xhr.response.status=='401'){
-        shopGrid.innerHTML = "You must login to view shop";
+        shopGrid.innerHTML = "<h1>You must < href='/login.html'>login</> to view shop</h1>";
     } 
     xhr.response.forEach((product)=>{ 
         shopGrid.innerHTML += ` 

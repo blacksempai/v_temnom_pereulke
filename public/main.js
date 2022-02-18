@@ -10,3 +10,13 @@ if (document.cookie.includes("token")) {
 } else {
   document.getElementById("shop").style.display = "none";
 }
+
+function modal() {
+    let mo = document.getElementById('modal');
+    if(mo.style.display == 'none') {
+        mo.style.display = 'block'
+    }
+    else {
+        mo.style.display = 'none'
+    }
+}
