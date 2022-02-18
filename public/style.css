@@ -147,11 +147,15 @@ color: black;
   background: none;
   border-radius: 50%;
   width: 50px;
-  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
 }
 #show_cart_btn img{
-  width: 50px;
-  width: 50px;
+  width: 25px;
+  width: 25px;
 }
 .cart_shop{ 
   position: relative; 
