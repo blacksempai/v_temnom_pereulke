@@ -215,4 +215,12 @@ color: black;
     grid-template-columns: 300px;
     grid-template-rows: 470px 470px 470px 1fr;
   }
+
+  .cart_content {
+    position: static;
+  }
+
+  .cart_shop {
+    margin-left: -4rem;
+  }
 }
