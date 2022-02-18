@@ -25,7 +25,6 @@ app.post('/callback', (req,res)=>{
 })
 
 app.post('/', (req,res)=>{
-    console.log(req.body);
     res.redirect('/');
 })
 
@@ -82,10 +81,9 @@ app.post('/user',(req,res) => {
     (e,result) => {
         if(e) res.redirect('/error.html');
         else {
-            console.log(result);
             let userId = result.rows[0].id;
             con.query(`INSERT INTO cart(user_id) VALUES(${userId})`,(e,result)=>{
-                if(e) res.status(500).end();
+                if(e) res.redirect('/error.html');
                 else res.redirect('login.html');
             });
         }
@@ -128,7 +126,6 @@ app.post('/login' , (req , res)=>{
     let user = req.body;
     con.query(`SELECT id, login, password FROM users WHERE login = '${user.login}'`,
     (error, result) => {
-        console.log(result)
         if (error) 
             res.status(500).send('DataBase ErroR ' + error);
         else
