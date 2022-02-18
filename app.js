@@ -41,11 +41,12 @@ app.get('/user',(req,res)=>{
                   amount: 1000,
                   merchant_id: "1397120",
                   product_id: result.rows[0].id,
-                  response_url: "https://v-temnom-magaze.herokuapp.com/",
-                  server_callback_url: "https://v-temnom-magaze.herokuapp.com/callback"
+                  //response_url: "https://v-temnom-magaze.herokuapp.com/",
+                  //server_callback_url: "https://v-temnom-magaze.herokuapp.com/callback"
+                  response_url: "https://api.fondy.eu/responsepage/"
                 }
               }
-            let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url+"|"+pay.request.server_callback_url); 
+            let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url); 
             pay.request.signature = signature;
             fetch('https://pay.fondy.eu/api/checkout/url/', {
                 method: 'POST',
@@ -53,8 +54,9 @@ app.get('/user',(req,res)=>{
                   'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify(pay)
-              }).then((value)=>{
-                let url = JSON.parse(value).response.checkout_url; 
+              }).then(res => res.json())
+              .then((json)=>{
+                let url = json.response.checkout_url; 
                 res.send(`
                 <h1>Ваш баланс: ${result.rows[0].balance}</h1>
                 <h2>Пополнить баланс: </h2>
@@ -77,7 +79,7 @@ app.get('/user',(req,res)=>{
                     this.action('message',function(data,type){
                         console.log(data);
                     });
-                    this.loadUrl(url);
+                    this.loadUrl(${url});
                 });</script>
             `);
               })
