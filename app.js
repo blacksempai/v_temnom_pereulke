@@ -83,7 +83,7 @@ app.post('/user',(req,res) => {
         if(e) res.redirect('/error.html');
         else {
             console.log(result);
-            let userId = result.rows[0].insertId;
+            let userId = result.rows[0].id;
             con.query(`INSERT INTO cart(user_id) VALUES(${userId})`,(e,result)=>{
                 if(e) res.status(500).end();
                 else res.redirect('login.html');
