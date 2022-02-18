@@ -41,14 +41,12 @@ app.get('/user',(req,res)=>{
                   amount: 1000,
                   merchant_id: "1397120",
                   product_id: result.rows[0].id,
-                  //response_url: "https://v-temnom-magaze.herokuapp.com/",
-                  //server_callback_url: "https://v-temnom-magaze.herokuapp.com/callback"
-                  response_url: "https://api.fondy.eu/responsepage/"
+                  response_url: "https://v-temnom-magaze.herokuapp.com/",
+                  server_callback_url: "https://v-temnom-magaze.herokuapp.com/callback"
                 }
               }
-            let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url); 
+            let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url+"|"+pay.request.server_callback_url); 
             pay.request.signature = signature;
-            console.log(pay);
             fetch('https://pay.fondy.eu/api/checkout/url/', {
                 method: 'POST',
                 headers: {
@@ -57,7 +55,6 @@ app.get('/user',(req,res)=>{
                 body: JSON.stringify(pay)
               }).then(res => res.json())
               .then((json)=>{
-                  console.log(json);
                 let url = json.response.checkout_url; 
                 res.send(`
                 <h1>Ваш баланс: ${result.rows[0].balance}</h1>
