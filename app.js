@@ -79,7 +79,7 @@ app.get('/user',(req,res)=>{
                     this.action('message',function(data,type){
                         console.log(data);
                     });
-                    this.loadUrl(${url});
+                    this.loadUrl('${url}');
                 });</script>
             `);
               })
