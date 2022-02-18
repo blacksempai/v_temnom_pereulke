@@ -37,11 +37,11 @@ app.get('/user',(req,res)=>{
     con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
         if(e) res.redirect('/error.html');
         else {  
-            let rand= Math.floor(Math.random()*900000);
+            let rand= Math.floor(Math.random()*9000 + Math.random()*2000 + Math.random()*10000);
             let pay = {
                 request: {
                   order_id: "temniy"+rand,
-                  order_desc: "Верни деньги мамке",
+                  order_desc: "Верни карточку мамке",
                   currency: "USD",
                   amount: 100000,
                   merchant_id: "1397120",
@@ -55,17 +55,17 @@ app.get('/user',(req,res)=>{
             res.send(`
             <center>
             <h1>Профиль пользователя ${result.rows[0].login}</h1>
-            <h1>Ваш баланс: ${result.rows[0].balance}</h1>
+            <h1>Ваш баланс: ${result.rows[0].balance}$</h1>
             <form name="tocheckout" method="POST" action="https://pay.fondy.eu/api/checkout/redirect/">
-            <input type="text" name="server_callback_url" value="${pay.request.server_callback_url}">
-            <input type="text" name="response_url" value="${pay.request.response_url}">
-            <input type="text" name="order_id" value="${pay.request.order_id}">
-            <input type="text" name="order_desc" value="${pay.request.order_desc}">
-            <input type="text" name="currency" value="${pay.request.currency}">
-            <input type="text" name="amount" value="${pay.request.amount}">
-            <input type="text" name="signature" value="${pay.request.signature}">
-            <input type="text" name="merchant_id" value="${pay.request.product_id}">
-            <input type="text" name="merchant_id" value="${pay.request.merchant_id}">
+            <input type="text" hidden name="server_callback_url" value="${pay.request.server_callback_url}">
+            <input type="text" hidden name="response_url" value="${pay.request.response_url}">
+            <input type="text" hidden name="order_id" value="${pay.request.order_id}">
+            <input type="text" hidden name="order_desc" value="${pay.request.order_desc}">
+            <input type="text" hidden name="currency" value="${pay.request.currency}">
+            <input type="text" hidden name="amount" value="${pay.request.amount}">
+            <input type="text" hidden name="signature" value="${pay.request.signature}">
+            <input type="text" hidden name="product_id" value="${pay.request.product_id}">
+            <input type="text" hidden name="merchant_id" value="${pay.request.merchant_id}">
             <input style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Пополнить счет">
           </form>
             <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Вернуться на главную страницу</a>
