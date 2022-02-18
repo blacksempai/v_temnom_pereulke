@@ -3,10 +3,10 @@ let cartRequest = new XMLHttpRequest()
 cartRequest.open('GET','/cart/products')
 cartRequest.responseType = 'json'
 cartRequest.onload = () => {
-    modalElem.innerHTML = '0'
+    modalElem.innerHTML = ''
     cartRequest.response.forEach(cp => {
         modalElem.innerHTML += `
-            <p>Product: ${cp.product.name} <a href='/remove-from-cart?id=${cp.id}'>-</a></p>
+            <p>Product: ${cp.product.name} <a href='/remove-from-cart?id=${cp.id}' style="font-size: 2rem; text-decoration: none;">-</a></p>
         `
     });
     modalElem.innerHTML +=`

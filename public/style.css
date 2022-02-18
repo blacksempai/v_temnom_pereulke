@@ -175,6 +175,9 @@ color: black;
     height: 600px; 
     border-radius: 20px;
     background-color: grey; 
+    padding: 20px;
+    font-size: 2rem;
+    box-sizing: border-box;
 }
 
 .after_sales{

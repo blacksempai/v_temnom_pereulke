@@ -229,7 +229,7 @@ app.get('/cart/products', (req,res)=>{
 
 app.get("/remove-from-cart", (req, res) => {
     let cart_product_id = req.query.id;
-    db.query(`DELETE FROM cart_product WHERE id=${cart_product_id}`, (error, result) => {
+    con.query(`DELETE FROM cart_product WHERE id=${cart_product_id}`, (error, result) => {
         if (error) res.status(500).redirect('/error.html');
         else {
             res.redirect("/shop.html"); 

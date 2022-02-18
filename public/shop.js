@@ -21,10 +21,10 @@ xhr.onload = () => {
           <h5 class="card-title">${product.name}</h5>
             <p class="card-text">${product.description}</p>
             <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">Category: ${product.category}</small>
               <div class="btn-group">
                 <a type="button" href="/cart?id=${product.id}" class="btn btn-primary">Buy</a>
-              </div>
-              <small class="text-muted">Category: ${product.category}</small>
+              </div> 
             </div>
           </div>
         </div>
