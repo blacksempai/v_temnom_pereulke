@@ -4,21 +4,26 @@ const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
 const con = require('./config');
 const multer = require('multer');
+const aws = require('aws-sdk')
+const multerS3 = require('multer-s3')
 const res = require('express/lib/response');
 const app = express();
 app.use(express.urlencoded({extended: true}));
 app.listen(process.env.PORT || 3000);
 app.use(cookieParser());
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, __dirname+'/public/Organs/')
+var upload = multer({
+  storage: multerS3({
+    s3: new aws.S3(),
+    bucket: 'some-bucket',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
     },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString())
     }
+  })
 })
-var upload = multer({ storage: storage })
 
 app.use(express.static(__dirname + '/public'));
 
