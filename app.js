@@ -27,6 +27,11 @@ app.post('/callback', (req,res)=>{
     res.status(200).end();
 })
 
+app.post('/', (req,res)=>{
+    console.log(req.body);
+    res.redirect('/');
+})
+
 app.get('/user',(req,res)=>{
     let token = req.cookies.token;
     con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
@@ -36,7 +41,7 @@ app.get('/user',(req,res)=>{
             let pay = {
                 request: {
                   order_id: "temniy"+rand,
-                  order_desc: "Пополнение баланса",
+                  order_desc: "Верни деньги мамке",
                   currency: "USD",
                   amount: 100000,
                   merchant_id: "1397120",
@@ -47,43 +52,26 @@ app.get('/user',(req,res)=>{
               }
             let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url+"|"+pay.request.server_callback_url); 
             pay.request.signature = signature;
-            fetch('https://pay.fondy.eu/api/checkout/url/', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(pay)
-              }).then(res => res.json())
-              .then((json)=>{
-                let url = json.response.checkout_url; 
-                res.send(`
-                <center>
-                <h1>Профиль пользователя ${result.rows[0].login}</h1>
-                <h1>Ваш баланс: ${result.rows[0].balance}</h1>
-                <div id="frameholder"> </div>
-                <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go back to home page</a>
-                </center>
-                <script src="https://pay.fondy.eu/static_common/v1/checkout/ipsp.js"></script>
-                <script> $ipsp.get('checkout').config({
-                    'wrapper': '#frameholder' ,
-                    'styles' : {
-                        'body':{'overflow':'hidden'},
-                        '.page-section-shopinfo':{display:'none'},
-                        '.page-section-footer':{display:'none'}
-                    }
-                }).scope(function(){
-                    this.width(480);
-                    this.height(480);
-                    this.action('decline',function(data,type){
-                        console.log(data);
-                    });
-                    this.action('message',function(data,type){
-                        console.log(data);
-                    });
-                    this.loadUrl('${url}');
-                });</script>
-            `);
-              })
+            res.send(`
+            <center>
+            <h1>Профиль пользователя ${result.rows[0].login}</h1>
+            <h1>Ваш баланс: ${result.rows[0].balance}</h1>
+            <form name="tocheckout" method="POST" action="https://pay.fondy.eu/api/checkout/redirect/">
+            <input type="text" name="server_callback_url" value="${pay.request.server_callback_url}">
+            <input type="text" name="response_url" value="${pay.request.response_url}">
+            <input type="text" name="order_id" value="${pay.request.order_id}">
+            <input type="text" name="order_desc" value="${pay.request.order_desc}">
+            <input type="text" name="currency" value="${pay.request.currency}">
+            <input type="text" name="amount" value="${pay.request.amount}">
+            <input type="text" name="signature" value="${pay.request.signature}">
+            <input type="text" name="merchant_id" value="${pay.request.product_id}">
+            <input type="text" name="merchant_id" value="${pay.request.merchant_id}">
+            <input style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Пополнить счет">
+          </form>
+            <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Вернуться на главную страницу</a>
+            </center>
+           
+        `);
         }
     });
 });
