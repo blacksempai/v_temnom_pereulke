@@ -10,17 +10,18 @@ app.use(express.urlencoded({extended: true}));
 app.listen(process.env.PORT || 3000);
 app.use(cookieParser());
 
-app.use(express.static(__dirname + '/public'));
-
-const storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-      callback(null, './public/Organs');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads')
     },
-    filename: function (req, file, callback) {
-      callback(null, file.originalname);
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
     }
-  });
-const upload = multer({ storage: storage })
+})
+var upload = multer({ storage: storage })
+
+app.use(express.static(__dirname + '/public'));
+app.use('/uploads', express.static('uploads'));
 
 
 app.post('/callback', (req,res)=>{
