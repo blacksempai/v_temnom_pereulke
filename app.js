@@ -60,6 +60,7 @@ app.get('/user',(req,res)=>{
             let signature = sha1('test'+"|"+pay.request.amount+"|"+pay.request.currency+"|"+pay.request.merchant_id+"|"+pay.request.order_desc+"|"+pay.request.order_id+"|"+pay.request.product_id+"|"+pay.request.response_url+"|"+pay.request.server_callback_url); 
             pay.request.signature = signature;
             res.send(`
+            <body style="background:#000000; color: #00ff00; font-family: sans-serif;">
             <center>
             <h1>Profile of: ${result.rows[0].login}</h1>
             <h1>Your balance: ${result.rows[0].balance}$</h1>
@@ -73,11 +74,11 @@ app.get('/user',(req,res)=>{
             <input type="text" hidden name="signature" value="${pay.request.signature}">
             <input type="text" hidden name="product_id" value="${pay.request.product_id}">
             <input type="text" hidden name="merchant_id" value="${pay.request.merchant_id}">
-            <input style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Top up balance">
+            <input style="margin-top:20px; cursor: pointer; color: #00ff00; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Top up balance">
           </form>
-            <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go to Home PAge</a>
+            <a style="margin-top:20px; border: 1px solid #000000; text-decoration:none; color: #00ff00; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go to Home Page</a>
             </center>
-           
+            </body>
         `);
         }
     });
