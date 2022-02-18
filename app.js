@@ -32,7 +32,7 @@ app.get('/user',(req,res)=>{
     con.query(`SELECT * FROM users WHERE token = '${token}'`,(e,result)=>{
         if(e) res.redirect('/error.html');
         else {  
-            let rand= Math.floor(Math.random*900000);
+            let rand= Math.floor(Math.random()*900000);
             let pay = {
                 request: {
                   order_id: "temniy"+rand,
