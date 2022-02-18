@@ -4,6 +4,7 @@ if (document.cookie.includes("token")) {
                           <a href='/user'>${user}</a>
                           <a href='/logout'>LOgout</a>
              `;
+             console.log(document.getElementsByClassName("auth"));
   for (let a of document.getElementsByClassName("auth")) {
       a.style.display = "none";
   }
