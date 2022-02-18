@@ -80,7 +80,7 @@ app.post('/user',(req,res) => {
     users(login,password,email,balance)
     VALUES('${user.login}','${user.password}','${user.email}',0) `,
     (e,result) => {
-        if(e) res.send(e);
+        if(e) res.redirect('/error.html');
         else {
             console.log(result);
             let userId = result.rows[0].insertId;
