@@ -57,11 +57,12 @@ app.get('/user',(req,res)=>{
               .then((json)=>{
                 let url = json.response.checkout_url; 
                 res.send(`
+                <center>
                 <h1>Профиль пользователя ${result.rows[0].login}</h1>
                 <h1>Ваш баланс: ${result.rows[0].balance}</h1>
-                <h2>Пополнить баланс: </h2>
                 <div id="frameholder"> </div>
-                <a style="font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go back to home page</a>
+                <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go back to home page</a>
+                </center>
                 <script src="https://pay.fondy.eu/static_common/v1/checkout/ipsp.js"></script>
                 <script> $ipsp.get('checkout').config({
                     'wrapper': '#frameholder' ,
