@@ -1,3 +1,7 @@
+* {
+  flex-wrap: wrap;
+}
+
 
 .content{
   background-color: black;
