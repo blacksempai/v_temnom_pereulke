@@ -62,8 +62,8 @@ app.get('/user',(req,res)=>{
             pay.request.signature = signature;
             res.send(`
             <center>
-            <h1>Профиль пользователя ${result.rows[0].login}</h1>
-            <h1>Ваш баланс: ${result.rows[0].balance}$</h1>
+            <h1>Profile of: ${result.rows[0].login}</h1>
+            <h1>Your balance: ${result.rows[0].balance}$</h1>
             <form name="tocheckout" method="POST" action="https://pay.fondy.eu/api/checkout/redirect/">
             <input type="text" hidden name="server_callback_url" value="${pay.request.server_callback_url}">
             <input type="text" hidden name="response_url" value="${pay.request.response_url}">
@@ -74,9 +74,9 @@ app.get('/user',(req,res)=>{
             <input type="text" hidden name="signature" value="${pay.request.signature}">
             <input type="text" hidden name="product_id" value="${pay.request.product_id}">
             <input type="text" hidden name="merchant_id" value="${pay.request.merchant_id}">
-            <input style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Пополнить счет">
+            <input style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" type="submit" value="Top up balance">
           </form>
-            <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Вернуться на главную страницу</a>
+            <a style="margin-top:20px; font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go to Home PAge</a>
             </center>
            
         `);
