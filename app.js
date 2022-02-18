@@ -12,16 +12,15 @@ app.use(cookieParser());
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './uploads')
+      cb(null, __dirname+'/public/Organs/')
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname)
+      cb(null, file.fieldname + '-' + Date.now())
     }
 })
 var upload = multer({ storage: storage })
 
 app.use(express.static(__dirname + '/public'));
-app.use('/uploads', express.static('uploads'));
 
 
 app.post('/callback', (req,res)=>{
@@ -125,7 +124,7 @@ app.get('/product',(req,res)=>{
 
 });
 
-app.post('/product', upload.single('img'),(req,res) => {
+app.post('/product', upload.any(), (req,res) => {
     let product = req.body;
     console.log(JSON.stringify(req.file))
     con.query(`INSERT INTO 
