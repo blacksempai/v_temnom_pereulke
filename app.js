@@ -36,9 +36,9 @@ app.get('/user',(req,res)=>{
             let pay = {
                 request: {
                   order_id: "temniy"+rand,
-                  order_desc: "Отдай мамке карточку",
+                  order_desc: "Пополнение баланса",
                   currency: "USD",
-                  amount: 1000,
+                  amount: 100000,
                   merchant_id: "1397120",
                   product_id: result.rows[0].id,
                   response_url: "https://v-temnom-magaze.herokuapp.com/",
@@ -57,10 +57,11 @@ app.get('/user',(req,res)=>{
               .then((json)=>{
                 let url = json.response.checkout_url; 
                 res.send(`
+                <h1>Профиль пользователя ${result.rows[0].login}</h1>
                 <h1>Ваш баланс: ${result.rows[0].balance}</h1>
                 <h2>Пополнить баланс: </h2>
                 <div id="frameholder"> </div>
-                <a href="/">Go back to home page</a>
+                <a style="font-size: 3rem; background: yellow; border-radius:15px; display:inline-block; padding:20px;" href="/">Go back to home page</a>
                 <script src="https://pay.fondy.eu/static_common/v1/checkout/ipsp.js"></script>
                 <script> $ipsp.get('checkout').config({
                     'wrapper': '#frameholder' ,
