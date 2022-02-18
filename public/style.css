@@ -145,15 +145,16 @@ color: black;
 
 #show_cart_btn{
   background: none;
-
+  border-radius: 50%;
 }
 #show_cart_btn img{
-  width: 100px;
+  width: 50px;
+  width: 50px;
 }
 .cart_shop{ 
-  position: relative;
-  right: 60px; 
-  width: 100px; 
+  position: relative; 
+  width: 50px; 
+  margin-left: 2rem;
 }
 .cart_content{
   position: absolute; 
