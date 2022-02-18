@@ -17,9 +17,11 @@ const storage = multer.diskStorage({
       callback(null, '/public/Organs');
     },
     filename: function (req, file, callback) {
-      callback(null, file.fieldname);
+      callback(null, file.originalname);
     }
   });
+const upload = multer({ storage: storage })
+
 
 app.post('/callback', (req,res)=>{
     let pay = req.body;
@@ -122,11 +124,11 @@ app.get('/product',(req,res)=>{
 
 });
 
-app.post('/product',(req,res) => {
+app.post('/product', upload.single('img'),(req,res) => {
     let product = req.body;
     con.query(`INSERT INTO 
     product(name,price,description,img,category)
-    VALUES('${product.name}',${product.price},'${product.description}','${product.img}','${product.category}')`,
+    VALUES('${product.name}',${product.price},'${product.description}','${req.file.path}','${product.category}')`,
     (e,result) => {
         if(e) res.redirect('/error.html');
         else res.redirect('/');
